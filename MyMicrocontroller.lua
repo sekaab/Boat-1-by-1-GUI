@@ -49,21 +49,21 @@ ticks = 0
 page = 1
 function onTick()
     RTFl = 1700.0--input.getNumber(7)
-  RTFc = 1700--input.getNumber(8)
-  LTFl = 987.01--input.getNumber(9)
-  LTFc = 1700--input.getNumber(10)
-  FCon = 0.532--input.getNumber(11)
+    RTFc = 1700--input.getNumber(8)
+    LTFl = 987.01--input.getNumber(9)
+    LTFc = 1700--input.getNumber(10)
+    FCon = 0.532--input.getNumber(11)
     WSpe = input.getNumber(12)
     WDir = input.getNumber(13)
     iX = input.getNumber(3)
-  iY = input.getNumber(4)
+    iY = input.getNumber(4)
     PrBu = input.getBool(1)
 
     isPrPgSw = PrBu and isPointInRectangle(iX, iY, 0, 29, 32, 2)
 end
 
 function isPointInRectangle(x, y, rectX, rectY, rectW, rectH)
-  return x > rectX and y > rectY and x < rectX+rectW and y < rectY+rectH
+    return x > rectX and y > rectY and x < rectX+rectW and y < rectY+rectH
 end
 
 function onDraw()
@@ -87,14 +87,16 @@ function FuelDraw()
     Color(22, 22, 22, 131)
     screen.drawRect(2, 14, 3, 14)
     screen.drawRect(26, 10, 3, 14)
+    --draw the Arrows for the Pump Direction in the same Grey Shade
     Uline = 17
     Bline = 21
-    screen.drawLine(8, Uline, 24, Uline)
-    screen.drawLine(8, Bline, 24, Bline)
-    --screen.drawLine(22,20,22,18)
-    --screen.drawLine(16,19,20,19)
-    --screen.drawTriangleF(20 ,Uline - 2 ,24 , Uline, 28, Uline + 2)
-    --screen.drawTriangleF(22,18, 22,20, 24,19)
+    screen.drawLine(8, Uline, 24, Uline); screen.drawLine(22, Uline - 1, 22, Uline + 2)
+    screen.drawLine(8, Bline, 24, Bline); screen.drawLine(9, Bline - 1, 9, Bline + 2)
+    --Draw the ActivationRects
+    Color(0, 5, 250)
+    Displacement = 2
+    screen.drawRectF(28/2-Displacement, Uline - 1, 4, 3)
+    screen.drawRectF(28/2+Displacement, Bline - 1, 4, 3)
     --Draw (fill) the Bars
     Color(0, 255, 33, 131)
     screen.drawRectF(3, 28, 2, -13*LTFl/LTFc)
@@ -120,13 +122,13 @@ end
 function DrawBackground()
     --Draw Background
     Color(8, 8, 8)
-  screen.drawClear()
-  Color(0, 0, 0)
-  screen.drawRectF(0, 0, 32, 8)
-  Color(0, 33, 33)
-  screen.drawRectF(0, 9, 32, 24)
-  Color(0, 5, 250)
-  screen.drawRectF(0, 30, 32, 2)
+    screen.drawClear()
+    Color(0, 0, 0)
+    screen.drawRectF(0, 0, 32, 8)
+    Color(0, 33, 33)
+    screen.drawRectF(0, 9, 32, 24)
+    Color(0, 5, 250)
+    screen.drawRectF(0, 30, 32, 2)
     Color(255, 255, 255)
 end
 

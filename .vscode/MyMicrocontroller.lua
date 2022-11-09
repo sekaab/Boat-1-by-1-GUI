@@ -9,7 +9,7 @@
 
 
 --[====[ EDITABLE SIMULATOR CONFIG - *automatically removed from the F7 build output ]====]
----@section LB_SIMULATOR_ONLY
+---@section __LB_SIMULATOR_ONLY__
 do
     ---@type Simulator -- Set properties and screen sizes here - will run once when the script is loaded
     simulator = simulator
@@ -49,21 +49,21 @@ ticks = 0
 page = 1
 function onTick()
     RTFl = 1700.0--input.getNumber(7)
-  RTFc = 1700--input.getNumber(8)
-  LTFl = 987.01--input.getNumber(9)
-  LTFc = 1700--input.getNumber(10)
-  FCon = 0.532--input.getNumber(11)
+	RTFc = 1700--input.getNumber(8)
+	LTFl = 987.01--input.getNumber(9)
+	LTFc = 1700--input.getNumber(10)
+	FCon = 0.532--input.getNumber(11)
     WSpe = input.getNumber(12)
     WDir = input.getNumber(13)
     iX = input.getNumber(3)
-  iY = input.getNumber(4)
+	iY = input.getNumber(4)
     PrBu = input.getBool(1)
 
     isPrPgSw = PrBu and isPointInRectangle(iX, iY, 0, 29, 32, 2)
 end
 
 function isPointInRectangle(x, y, rectX, rectY, rectW, rectH)
-  return x > rectX and y > rectY and x < rectX+rectW and y < rectY+rectH
+	return x > rectX and y > rectY and x < rectX+rectW and y < rectY+rectH
 end
 
 function onDraw()
@@ -79,6 +79,7 @@ function onDraw()
         WindDraw()
     end
 end
+
 function FuelDraw()
     DrawBackground()
     screen.drawTextBox(1, 1, 32, 5, Round(3, math.abs(FCon)), -1, 0)
@@ -87,7 +88,7 @@ function FuelDraw()
     screen.drawRect(2, 14, 3, 14)
     screen.drawRect(26, 10, 3, 14)
     Uline = 17
-    Bline = 21
+    Bline = 22
     screen.drawLine(8, Uline, 24, Uline)
     screen.drawLine(8, Bline, 24, Bline)
     --screen.drawLine(22,20,22,18)
@@ -119,13 +120,13 @@ end
 function DrawBackground()
     --Draw Background
     Color(8, 8, 8)
-  screen.drawClear()
-  Color(0, 0, 0)
-  screen.drawRectF(0, 0, 32, 8)
-  Color(0, 33, 33)
-  screen.drawRectF(0, 9, 32, 24)
-  Color(0, 5, 250)
-  screen.drawRectF(0, 30, 32, 2)
+	screen.drawClear()
+	Color(0, 0, 0)
+	screen.drawRectF(0, 0, 32, 8)
+	Color(0, 33, 33)
+	screen.drawRectF(0, 9, 32, 24)
+	Color(0, 5, 250)
+	screen.drawRectF(0, 30, 32, 2)
     Color(255, 255, 255)
 end
 
