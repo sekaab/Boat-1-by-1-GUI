@@ -9,7 +9,7 @@
 
 
 --[====[ EDITABLE SIMULATOR CONFIG - *automatically removed from the F7 build output ]====]
----@section __LB_SIMULATOR_ONLY__
+---@section LB_SIMULATOR_ONLY
 do
     ---@type Simulator -- Set properties and screen sizes here - will run once when the script is loaded
     simulator = simulator
@@ -46,24 +46,24 @@ end
 -- the "LifeBoatAPI" is included by default in /_build/libs/ - you can use require("LifeBoatAPI") to get this, and use all the LifeBoatAPI.<functions>!
 
 ticks = 0
-page = 2
+page = 1
 function onTick()
-    RTFl = input.getNumber(7)
-	RTFc = input.getNumber(8)
-	LTFl = input.getNumber(9)
-	LTFc = input.getNumber(10)
-	FCon = input.getNumber(11)
+    RTFl = 1700.0--input.getNumber(7)
+  RTFc = 1700--input.getNumber(8)
+  LTFl = 987.01--input.getNumber(9)
+  LTFc = 1700--input.getNumber(10)
+  FCon = 0.532--input.getNumber(11)
     WSpe = input.getNumber(12)
     WDir = input.getNumber(13)
     iX = input.getNumber(3)
-	iY = input.getNumber(4)
+  iY = input.getNumber(4)
     PrBu = input.getBool(1)
 
     isPrPgSw = PrBu and isPointInRectangle(iX, iY, 0, 29, 32, 2)
 end
 
 function isPointInRectangle(x, y, rectX, rectY, rectW, rectH)
-	return x > rectX and y > rectY and x < rectX+rectW and y < rectY+rectH
+  return x > rectX and y > rectY and x < rectX+rectW and y < rectY+rectH
 end
 
 function onDraw()
@@ -81,41 +81,60 @@ function onDraw()
 end
 
 function FuelDraw()
-    DrawBackground()	
-	screen.setColor(0, 200, 5)
-	screen.drawRectF(1, 16, 30*(RTFl/RTFc), 2)
-	screen.drawRectF(1, 25, 30*(LTFl/LTFc), 2)	
-	--Write Informations
-	screen.setColor(255, 255, 255)
-	screen.drawTextBox(1, 1, 32, 5, string.sub(math.abs(FCon),0,4).." C", -1, 0)
-	screen.drawTextBox(1, 12, 32, 5, "R "..string.format("%.0f", math.abs(RTFl)), -1, 0)
-	screen.drawTextBox(1, 21, 32, 5, "L "..string.format("%.0f", math.abs(LTFl)), -1, 0)
+    DrawBackground()
+    screen.drawTextBox(1, 1, 32, 5, Round(3, math.abs(FCon)), -1, 0)
+    --Draw the Bar Frames
+    Color(22, 22, 22, 131)
+    screen.drawRect(2, 14, 3, 14)
+    screen.drawRect(26, 10, 3, 14)
+    Uline = 17
+    Bline = 21
+    screen.drawLine(8, Uline, 24, Uline)
+    screen.drawLine(8, Bline, 24, Bline)
+    --screen.drawLine(22,20,22,18)
+    --screen.drawLine(16,19,20,19)
+    --screen.drawTriangleF(20 ,Uline - 2 ,24 , Uline, 28, Uline + 2)
+    --screen.drawTriangleF(22,18, 22,20, 24,19)
+    --Draw (fill) the Bars
+    Color(0, 255, 33, 131)
+    screen.drawRectF(3, 28, 2, -13*LTFl/LTFc)
+    screen.drawRectF(27, 24, 2, -13*RTFl/RTFc)
+    Color(255, 255, 255, 160)
+    BoxSize = 20
+    screen.drawTextBox(3, 10, BoxSize, 5, Round(0, math.abs(LTFl)), -1, 0)
+    Alteration = -3 + (BoxSize / 5 - string.len(Round(0, RTFl))) * 5
+    screen.drawTextBox(Alteration, 24, BoxSize, 5, Round(0, math.abs(RTFl)), 1, 0)
 end
 
 function WindDraw()
     DrawBackground()
     --Draw Informations
-    screen.setColor(255, 255, 255)
+    Color(255, 255, 255)
     rad = 7.5
-    screen.drawTextBox(1, 1, 32, 5, string.format("%.2f",WSpe), -1, 0)
+    screen.drawTextBox(1, 1, 32, 5, Round(2, WSpe), -1, 0)
     screen.drawCircle(15, 19, rad)
-    screen.setColor(255, 0, 0)
+    Color(255, 0, 0)
     screen.drawLine(15, 19, 15+math.sin(WDir*math.pi*2)*rad, 19+math.cos(WDir*math.pi*2)*rad)
 end
 
 function DrawBackground()
     --Draw Background
-    screen.setColor(8, 8, 8)
-	screen.drawClear()
-	screen.setColor(0, 0, 0)
-	screen.drawRectF(0, 0, 32, 8)
-	screen.setColor(0, 33, 33)
-	screen.drawRectF(0, 9, 32, 24)
-	screen.setColor(0, 200, 5)
-	screen.setColor(0, 5, 250)
-	screen.drawRectF(0, 30, 32, 2)
-    screen.setColor(255, 255, 255)
+    Color(8, 8, 8)
+  screen.drawClear()
+  Color(0, 0, 0)
+  screen.drawRectF(0, 0, 32, 8)
+  Color(0, 33, 33)
+  screen.drawRectF(0, 9, 32, 24)
+  Color(0, 5, 250)
+  screen.drawRectF(0, 30, 32, 2)
+    Color(255, 255, 255)
 end
 
+function Color(r, g, b, a)
+    a = a or 255
+    screen.setColor(r, g, b, a)
+end
 
-
+function Round(i, s)
+    return string.format("%."..i.."f", s)
+end
