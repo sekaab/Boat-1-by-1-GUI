@@ -100,8 +100,18 @@ function FuelDraw()
     Displacement = 2
         --register Buttonpress
         output.setBool(7, PrBu and isPointInRectangle(iX, iY, Centerline-Displacement, Uline - 1, 4, 3))
-        output.setBool(9, PrBu and isPointInRectangle(iX, iY, Centerline+Displacement, Bline - 1, 4, 3))
+        output.setBool(8, PrBu and isPointInRectangle(iX, iY, Centerline+Displacement, Bline - 1, 4, 3))
+    if PumpButtonLeftTank then
+        Color(255, 255, 255)
+    else
+        Color(0, 5, 250)
+    end
     screen.drawRectF(Centerline-Displacement, Uline - 1, 4, 3)
+    if PumpButtonRightTank then
+        Color(255, 255, 255)
+    else
+        Color(0, 5, 250)
+    end
     screen.drawRectF(Centerline+Displacement, Bline - 1, 4, 3)
     --Draw (fill) the Bars
     Color(0, 255, 33, 131)
