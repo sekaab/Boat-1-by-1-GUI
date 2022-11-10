@@ -58,6 +58,8 @@ function onTick()
     iX = input.getNumber(3)
     iY = input.getNumber(4)
     PrBu = input.getBool(1)
+    PumpButtonLeftTank = input.getBool(5)
+    PumpButtonRightTank = input.getBool(6)
 
     isPrPgSw = PrBu and isPointInRectangle(iX, iY, 0, 29, 32, 2)
 end
@@ -94,9 +96,13 @@ function FuelDraw()
     screen.drawLine(8, Bline, 24, Bline); screen.drawLine(9, Bline - 1, 9, Bline + 2)
     --Draw the ActivationRects
     Color(0, 5, 250)
+    Centerline = 28/2
     Displacement = 2
-    screen.drawRectF(28/2-Displacement, Uline - 1, 4, 3)
-    screen.drawRectF(28/2+Displacement, Bline - 1, 4, 3)
+        --register Buttonpress
+        output.setBool(7, PrBu and isPointInRectangle(iX, iY, Centerline-Displacement, Uline - 1, 4, 3))
+        output.setBool(9, PrBu and isPointInRectangle(iX, iY, Centerline+Displacement, Bline - 1, 4, 3))
+    screen.drawRectF(Centerline-Displacement, Uline - 1, 4, 3)
+    screen.drawRectF(Centerline+Displacement, Bline - 1, 4, 3)
     --Draw (fill) the Bars
     Color(0, 255, 33, 131)
     screen.drawRectF(3, 28, 2, -13*LTFl/LTFc)
