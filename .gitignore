@@ -1,0 +1,10 @@
+/_build/
+!/_build/_buildactions.lua
+StormworksMC.code-workspace
+.vscode/launch.json
+.vscode/settings.json
+.gitignore
+.vscode/.vscode/launch.json
+.vscode/.vscode/settings.json
+.vscode/MyMicrocontroller.lua
+.vscode/MyMicrocontroller.lua
